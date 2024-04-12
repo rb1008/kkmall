@@ -16,9 +16,12 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    @Select("SELECT COUNT(1) from user WHERE username = #{name}")
+    @Select("SELECT COUNT(1) FROM user WHERE username = #{name}")
     int selectByUsername(String name);
 
-    @Select("SELECT COUNT(1) from user WHERE email = #{email}")
+    @Select("SELECT COUNT(1) FROM user WHERE email = #{email}")
     int selectByEmail(String email);
+
+    @Select("SELECT * FROM user WHERE email = #{email}")
+    User selectUserByEmail(String email);
 }

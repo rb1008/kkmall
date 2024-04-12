@@ -1,7 +1,6 @@
 package com.kkmall.exception;
 
 import com.kkmall.enums.ErrorEnum;
-import com.kkmall.enums.ResponseEnum;
 import com.kkmall.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.BadSqlGrammarException;

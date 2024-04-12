@@ -1,13 +1,15 @@
 package com.kkmall.vo;
 
 import com.kkmall.enums.ResponseEnum;
+import lombok.Data;
 
+@Data
 public class ResponseVo<T> {
-    Integer code;
+    private Integer code;
 
-    String msg;
+    private String msg;
 
-    T data;
+    private T data;
 
     public ResponseVo(Integer code, String msg) {
         this.code = code;
