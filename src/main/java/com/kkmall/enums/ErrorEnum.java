@@ -16,6 +16,10 @@ public enum ErrorEnum {
 
     EMAIL_EXIT(-6, "邮箱已存在"),
 
+    LOGIN_AGAIN(-7,"登录失效,请重新登录！"),
+
+    EMAIL_ERROR(-8, "邮箱不匹配"),
+
     ;
 
     private final Integer code;

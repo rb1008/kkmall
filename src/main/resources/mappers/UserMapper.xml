@@ -131,9 +131,6 @@
       email = #{email,jdbcType=VARCHAR},
       img = #{img,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
-      register_time = #{registerTime,jdbcType=TIMESTAMP},
-      role = #{role,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
