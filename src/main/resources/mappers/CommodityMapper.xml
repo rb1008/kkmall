@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kkmall.dao.CommodityMapper">
+  <resultMap id="BaseResultMap" type="com.kkmall.entity.Commodity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="origin" jdbcType="VARCHAR" property="origin" />
+    <result column="classify_id" jdbcType="INTEGER" property="classifyId" />
+    <result column="original_price" jdbcType="DECIMAL" property="originalPrice" />
+    <result column="now_price" jdbcType="DECIMAL" property="nowPrice" />
+    <result column="inventory" jdbcType="INTEGER" property="inventory" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="sale_count" jdbcType="INTEGER" property="saleCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, color, material, origin, classify_id, original_price, now_price, inventory, 
+    publish_time, status, img, sale_count
+  </sql>
+  <sql id="Blob_Column_List">
+    info, description
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from commodity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <update id="updateByPrimaryKey" parameterType="com.kkmall.entity.Commodity">
+    update commodity
+    set name = #{name,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      origin = #{origin,jdbcType=VARCHAR},
+      classify_id = #{classifyId,jdbcType=INTEGER},
+      original_price = #{originalPrice,jdbcType=DECIMAL},
+      now_price = #{nowPrice,jdbcType=DECIMAL},
+      inventory = #{inventory,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      sale_count = #{saleCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

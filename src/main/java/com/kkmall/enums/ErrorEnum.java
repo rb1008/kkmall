@@ -16,9 +16,13 @@ public enum ErrorEnum {
 
     EMAIL_EXIT(-6, "邮箱已存在"),
 
-    LOGIN_AGAIN(-7,"登录失效,请重新登录！"),
+    LOGIN_AGAIN(-7, "登录失效,请重新登录！"),
 
     EMAIL_ERROR(-8, "邮箱不匹配"),
+
+    COMMODITY_NOT_EXIST(-9, "商品不存在"),
+
+    ALREADY_COLLECTION(-10, "商品已经收藏"),
 
     ;
 
