@@ -1,6 +1,7 @@
 package com.kkmall.dao;
 
 import com.kkmall.entity.Collection;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 public interface CollectionMapper {
@@ -17,5 +18,8 @@ public interface CollectionMapper {
     int updateByPrimaryKey(Collection record);
 
     @Select("SELECT EXISTS(SELECT COUNT(1) FROM collection WHERE user_id = #{uid} AND commodity_id = #{commodityId}) as result")
-    boolean selectByUidAndCommodityId(Integer uid,Integer commodityId);
+    boolean selectByUidAndCommodityId(Integer uid, Integer commodityId);
+
+    @Delete("DELETE FROM collection WHERE user_id = #{uid} AND commodity_id = #{commodityId}")
+    int deleteCollectionByUidAndCommodityId(Integer uid, Integer commodityId);
 }

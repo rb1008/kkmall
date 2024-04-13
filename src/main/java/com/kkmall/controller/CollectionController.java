@@ -10,12 +10,16 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping
 public class CollectionController {
-
     @Resource
     private CollectionService collectionService;
 
     @PostMapping("/doCollect")
     public ResponseVo<ResponseEnum> doCollect(@RequestHeader String token, @RequestParam("id") Integer id) {
         return ResponseVo.success(collectionService.doCollect(token, id));
+    }
+
+    @PostMapping("/undoCollect")
+    public ResponseVo<ResponseEnum> undoCollect(@RequestHeader String token, @RequestParam("id") Integer id) {
+        return ResponseVo.success(collectionService.undoCollect(token, id));
     }
 }

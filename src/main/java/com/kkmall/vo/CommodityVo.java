@@ -1,4 +1,4 @@
-package com.kkmall.entity;
+package com.kkmall.vo;
 
 import lombok.Data;
 
@@ -6,8 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class Commodity {
-    private Integer id;
+public class CommodityVo {
 
     private String name;
 

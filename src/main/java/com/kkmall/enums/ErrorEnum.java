@@ -24,6 +24,10 @@ public enum ErrorEnum {
 
     ALREADY_COLLECTION(-10, "商品已经收藏"),
 
+    NOT_COLLECTION(-11, "商品未收藏"),
+
+    COMMODITY_ADDED(-12, "商品已添加,请勿重复添加！"),
+
     ;
 
     private final Integer code;

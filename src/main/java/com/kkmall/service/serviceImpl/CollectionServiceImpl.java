@@ -35,7 +35,7 @@ public class CollectionServiceImpl implements CollectionService {
         }
         Integer uid = Integer.parseInt(JwtUtil.getUserId(token));
         boolean contain = collectionMapper.selectByUidAndCommodityId(uid, commodity.getId());
-        if(contain){
+        if (contain) {
             throw new BusinessException(ErrorEnum.ALREADY_COLLECTION);
         }
         Collection collection = new Collection();
@@ -44,6 +44,19 @@ public class CollectionServiceImpl implements CollectionService {
         int count = collectionMapper.insertSelective(collection);
         if (count == 0) {
             throw new BusinessException(ErrorEnum.ERROR);
+        }
+        return ResponseEnum.SUCCESS;
+    }
+
+    @Override
+    public ResponseEnum undoCollect(String token, Integer id) {
+        if (JwtUtil.isExpiration(token)) {
+            throw new BusinessException(ErrorEnum.LOGIN_AGAIN);
+        }
+        int uid = Integer.parseInt(JwtUtil.getUserId(token));
+        int count = collectionMapper.deleteCollectionByUidAndCommodityId(uid, id);
+        if(count == 0){
+            throw new BusinessException(ErrorEnum.NOT_COLLECTION);
         }
         return ResponseEnum.SUCCESS;
     }
