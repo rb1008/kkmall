@@ -42,7 +42,7 @@
 <!--               enableSelectByExample="false" enableUpdateByExample="false"/>-->
 <!--        <table tableName="commodity" domainObjectName="Commodity" enableCountByExample="false" enableDeleteByExample="false"-->
 <!--               enableSelectByExample="false" enableUpdateByExample="false"/>-->
-                <table tableName="address" domainObjectName="Address" enableCountByExample="false" enableDeleteByExample="false"
+                <table tableName="order" domainObjectName="Order" enableCountByExample="false" enableDeleteByExample="false"
                        enableSelectByExample="false" enableUpdateByExample="false"/>
 
     </context>

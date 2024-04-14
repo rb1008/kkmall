@@ -1,5 +1,7 @@
 package com.kkmall.controller;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.kkmall.entity.Address;
 import com.kkmall.form.AddressForm;
 import com.kkmall.service.AddressService;
 import com.kkmall.vo.AddressVo;
@@ -22,6 +24,20 @@ public class AddressController {
                                             @Valid @RequestBody AddressForm form) {
         AddressVo addressVo = new AddressVo();
         BeanUtils.copyProperties(addressService.addAddress(token, form), addressVo);
+        return ResponseVo.success(addressVo);
+    }
+
+    @PostMapping("/deleteAddress")
+    public ResponseVo<Object> deleteAddress(@RequestHeader String token,
+                                            @RequestParam("id") Integer id) {
+        return ResponseVo.success(JSONObject.from(addressService.deleteAddress(token, id)));
+    }
+
+    @PostMapping("/updateAddress")
+    public ResponseVo<AddressVo> updateAddress(@RequestHeader String token,
+                                               @RequestBody Address address) {
+        AddressVo addressVo = new AddressVo();
+        BeanUtils.copyProperties(addressService.updateAddress(token, address), addressVo);
         return ResponseVo.success(addressVo);
     }
 }

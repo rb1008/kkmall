@@ -2,7 +2,10 @@ package com.kkmall.dao;
 
 import com.kkmall.entity.Commodity;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface CommodityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -22,4 +25,6 @@ public interface CommodityMapper {
             "VALUES (#{name}, #{info}, #{description}, #{color}, #{material}, #{origin}," +
             " #{classifyId}, #{originalPrice}, #{nowPrice}, #{inventory}, #{publishTime}, #{status}, #{img}, #{saleCount})")
     int insertCommodity(Commodity record);
+
+    List<Commodity> selectCommodityByCommodityIdList(@Param("commodityIdList") List<Integer> commodityIdList);
 }

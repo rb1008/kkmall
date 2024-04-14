@@ -28,8 +28,15 @@
     delete from commodity
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    <select id="selectCommodityByCommodityIdList" resultType="com.kkmall.entity.Commodity">
+      SELECT * FROM commodity
+      WHERE id IN
+      <foreach item="id" collection="commodityIdList" open="(" separator="," close=")">
+        #{id}
+      </foreach>
+    </select>
 
-  <update id="updateByPrimaryKey" parameterType="com.kkmall.entity.Commodity">
+    <update id="updateByPrimaryKey" parameterType="com.kkmall.entity.Commodity">
     update commodity
     set name = #{name,jdbcType=VARCHAR},
       color = #{color,jdbcType=VARCHAR},

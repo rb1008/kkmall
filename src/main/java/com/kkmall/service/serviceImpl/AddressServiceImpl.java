@@ -38,4 +38,28 @@ public class AddressServiceImpl implements AddressService {
         }
         return address;
     }
+
+    @Override
+    public Object deleteAddress(String token, Integer id) {
+        if (JwtUtil.isExpiration(token)) {
+            throw new BusinessException(ErrorEnum.LOGIN_AGAIN);
+        }
+        int count = addressMapper.deleteByPrimaryKey(id);
+        if (count == 0) {
+            throw new BusinessException(ErrorEnum.ADDRESS_NOT_EXIST);
+        }
+        return new Object();
+    }
+
+    @Override
+    public Address updateAddress(String token, Address address) {
+        if (JwtUtil.isExpiration(token)) {
+            throw new BusinessException(ErrorEnum.LOGIN_AGAIN);
+        }
+        int update = addressMapper.updateByPrimaryKeySelective(address);
+        if (update == 0) {
+            throw new BusinessException(ErrorEnum.ADDRESS_NOT_EXIST);
+        }
+        return address;
+    }
 }

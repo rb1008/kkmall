@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kkmall.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.kkmall.entity.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="commodity_id" jdbcType="INTEGER" property="commodityId" />
+    <result column="courier_number" jdbcType="VARCHAR" property="courierNumber" />
+    <result column="courier_name" jdbcType="VARCHAR" property="courierName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="sipping_time" jdbcType="TIMESTAMP" property="sippingTime" />
+    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.kkmall.entity.Order">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_number, user_id, commodity_id, courier_number, courier_name, create_time, 
+    pay_time, sipping_time, success_time, status, address_id
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from `order`
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.kkmall.entity.Order">
+    insert into `order` (id, order_number, user_id,
+      commodity_id, courier_number, courier_name, 
+      create_time, pay_time, sipping_time, 
+      success_time, status, address_id, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{orderNumber,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{commodityId,jdbcType=INTEGER}, #{courierNumber,jdbcType=VARCHAR}, #{courierName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, #{sippingTime,jdbcType=TIMESTAMP}, 
+      #{successTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{addressId,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kkmall.entity.Order">
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderNumber != null">
+        order_number,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="commodityId != null">
+        commodity_id,
+      </if>
+      <if test="courierNumber != null">
+        courier_number,
+      </if>
+      <if test="courierName != null">
+        courier_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="sippingTime != null">
+        sipping_time,
+      </if>
+      <if test="successTime != null">
+        success_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="commodityId != null">
+        #{commodityId,jdbcType=INTEGER},
+      </if>
+      <if test="courierNumber != null">
+        #{courierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="courierName != null">
+        #{courierName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sippingTime != null">
+        #{sippingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null">
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertOrderByList" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO `order` (order_number,user_id, commodity_id, content, courier_number, courier_name, create_time, pay_time, status, address_id)
+    VALUES
+    <foreach collection="orderList" item="order" separator=",">
+      (#{order.orderNumber},#{order.userId}, #{order.commodityId}, #{order.content}, #{order.courierNumber}, #{order.courierName}, #{order.createTime}, #{order.payTime}, #{order.status}, #{order.addressId})
+    </foreach>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.kkmall.entity.Order">
+    update `order`
+    <set>
+      <if test="orderNumber != null">
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="commodityId != null">
+        commodity_id = #{commodityId,jdbcType=INTEGER},
+      </if>
+      <if test="courierNumber != null">
+        courier_number = #{courierNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="courierName != null">
+        courier_name = #{courierName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sippingTime != null">
+        sipping_time = #{sippingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null">
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.kkmall.entity.Order">
+    update order
+    set order_number = #{orderNumber,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      commodity_id = #{commodityId,jdbcType=INTEGER},
+      courier_number = #{courierNumber,jdbcType=VARCHAR},
+      courier_name = #{courierName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      sipping_time = #{sippingTime,jdbcType=TIMESTAMP},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kkmall.entity.Order">
+    update `order`
+    set order_number = #{orderNumber,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      commodity_id = #{commodityId,jdbcType=INTEGER},
+      courier_number = #{courierNumber,jdbcType=VARCHAR},
+      courier_name = #{courierName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      sipping_time = #{sippingTime,jdbcType=TIMESTAMP},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      address_id = #{addressId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
