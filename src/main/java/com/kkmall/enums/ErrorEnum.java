@@ -28,6 +28,10 @@ public enum ErrorEnum {
 
     COMMODITY_ADDED(-12, "商品已添加,请勿重复添加！"),
 
+    CART_NOT_EXIST(-13, "该购物车不存在！"),
+
+    ADDRESS_EXIST(-14, "地址已存在！"),
+
     ;
 
     private final Integer code;
