@@ -27,4 +27,6 @@ public interface CommodityMapper {
     int insertCommodity(Commodity record);
 
     List<Commodity> selectCommodityByCommodityIdList(@Param("commodityIdList") List<Integer> commodityIdList);
+
+    int updateInventoryAndSaleCount(@Param("orderList") List<Commodity> orderList);
 }

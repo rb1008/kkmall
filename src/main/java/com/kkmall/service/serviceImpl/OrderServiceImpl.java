@@ -17,6 +17,7 @@ import com.kkmall.utils.JwtUtil;
 import com.kkmall.vo.AddressVo;
 import com.kkmall.vo.OrderVo;
 import com.kkmall.vo.OrderVoList;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     @Resource
@@ -61,6 +63,7 @@ public class OrderServiceImpl implements OrderService {
             throw new BusinessException(ErrorEnum.COMMODITY_ID_ERROR);
         }
         List<Order> orderList = new ArrayList<>();
+        List<Commodity> commodityList = new ArrayList<>();
         for (Cart cart : cartList) {
             for (Commodity commodity : commodities) {
                 if (Objects.equals(cart.getCommodityId(), commodity.getId())) {
@@ -80,12 +83,13 @@ public class OrderServiceImpl implements OrderService {
                     }
                     commodity.setInventory(commodity.getInventory() - cart.getCount());
                     commodity.setSaleCount(commodity.getSaleCount() + cart.getCount());
-                    int update = commodityMapper.updateByPrimaryKey(commodity);
-                    if (update == 0) {
-                        throw new BusinessException(ErrorEnum.UPDATE_COMMODITY_INFORMATION_FAIL);
-                    }
+                    commodityList.add(commodity);
                 }
             }
+        }
+        int update = commodityMapper.updateInventoryAndSaleCount(commodityList);
+        if (update == 0) {
+            throw new BusinessException(ErrorEnum.ERROR);
         }
         boolean flag = orderMapper.insertOrderByList(orderList);
         if (!flag) {

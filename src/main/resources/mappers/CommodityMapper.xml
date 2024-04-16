@@ -52,4 +52,16 @@
       sale_count = #{saleCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateInventoryAndSaleCount" parameterType="java.util.List">
+    <foreach collection="orderList" item="order" separator=";">
+      UPDATE commodity
+      <set>
+      inventory = #{order.inventory},
+      sale_count = #{order.saleCount}
+      </set>
+      <where>
+        id = #{order.id}
+      </where>
+    </foreach>
+  </update>
 </mapper>
